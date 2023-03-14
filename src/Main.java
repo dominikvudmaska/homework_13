@@ -16,8 +16,8 @@ public class Main {
         System.out.println(sum);
 
         Stream.iterate(0, A -> A + 1)
+                .filter(A -> A % 2 == 0 && A % 8 != 0)
                 .limit(100)
-                .filter(A -> A % 2 == 0)
                 .forEach(A -> System.out.println(A));
 
         Book b1 = new Book("Na zapade nic nove", 14);
@@ -50,11 +50,12 @@ public class Main {
 
         Stream<Book> list3 = listOfBooks.stream();
 
-        OptionalDouble avg = list3.map(A -> A.getPrice())
+        Double avg = list3.map(A -> A.getPrice())
                 .mapToInt(Integer::intValue)
-                .average();
+                .average()
+                .getAsDouble();
 
-        System.out.println(avg.getAsDouble());
+        System.out.println(avg);
 
         Stream<Book> list4 = listOfBooks.stream();
         boolean isPriceLow = list4.allMatch(A -> A.getPrice() < 500);
